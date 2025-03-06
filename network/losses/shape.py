@@ -32,7 +32,7 @@ class ShapeAwareLoss(nn.Module):
     def forward(self, y_pred, y_true):
         dice_loss = DiceLoss()
         # print("y_pred size:", y_pred.size())
-        num_class = 6  # 예시로 num_class 값을 6으로 가정
+        num_class = 6  
         y_true = y_true.unsqueeze(1).expand(-1, num_class, -1, -1)
         # print("y_true size:", y_true.size())
         dice_loss_value = dice_loss(y_pred, y_true)
