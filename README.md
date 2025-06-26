@@ -27,7 +27,7 @@ pip install -r requirements.txt
 
 ## Prepare Data
 
-Prepare the following folders to organize this repo:
+Prepare the following folders to organize this repo: (same as [SFA-Net](https://github.com/j2jeong/SFA-Net) or [GeoSeg](https://github.com/WangLibo1995/GeoSeg))
 ```none
 D2LS
 ├── network
