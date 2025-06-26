@@ -6,10 +6,6 @@
 
 Dynamic Dictionary Learning for Remote Sensing Image Segmentation
 
-<!--[![Overleaf](https://img.shields.io/badge/Overleaf-Open-green?logo=Overleaf&style=flat)](https://www.overleaf.com/project/6695fd4634d7fee5d0b838e5)-->
-
-<!--Love the project? Please consider [donating](https://paypal.me/xavierjiezou?country.x=C2&locale.x=zh_XC) to help it improve!-->
-
 ![framework](/images/framework.svg)
 
 
