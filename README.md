@@ -2,7 +2,7 @@
 
 <!-- <img src="/images/logo.png" alt="logo" width="200" height="200"> -->
 
-# D2LS
+# [ICCV 2025] D2LS
 
 Dynamic Dictionary Learning for Remote Sensing Image Segmentation
 
