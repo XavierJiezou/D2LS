@@ -8,10 +8,14 @@ Dynamic Dictionary Learning for Remote Sensing Image Segmentation
 
 [![arXiv Paper](https://img.shields.io/badge/arXiv-2503.06683-B31B1B)](https://arxiv.org/abs/2503.06683)
 [![Project Page](https://img.shields.io/badge/Project%20Page-D2LS-blue)](https://xavierjiezou.github.io/D2LS/)
-[![Ranked #2 Semantic Segmentation on LoveDA](https://img.shields.io/badge/Ranked%20%232-Semantic%20Segmentation%20on%20LoveDA-informational)](https://paperswithcode.com/sota/semantic-segmentation-on-loveda)
-[![Ranked #3 Semantic Segmentation on UAVid](https://img.shields.io/badge/Ranked%20%233-Semantic%20Segmentation%20on%20UAVid-informational)](https://paperswithcode.com/sota/semantic-segmentation-on-uavid)
-[![Ranked #10 Semantic Segmentation on ISPRS Vaihingen](https://img.shields.io/badge/Ranked%20%2310-Semantic%20Segmentation%20on%20ISPRS%20Vaihingen-informational)](https://paperswithcode.com/sota/semantic-segmentation-on-isprs-vaihingen)
-[![Ranked #18 Semantic Segmentation on ISPRS Potsdam](https://img.shields.io/badge/Ranked%20%2318-Semantic%20Segmentation%20on%20ISPRS%20Potsdam-informational)](https://paperswithcode.com/sota/semantic-segmentation-on-isprs-potsdam)
+
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-isprs-potsdam)](https://paperswithcode.com/sota/semantic-segmentation-on-isprs-potsdam?p=dynamic-dictionary-learning-for-remote)
+
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-isprs-vaihingen)](https://paperswithcode.com/sota/semantic-segmentation-on-isprs-vaihingen?p=dynamic-dictionary-learning-for-remote)
+
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-uavid)](https://paperswithcode.com/sota/semantic-segmentation-on-uavid?p=dynamic-dictionary-learning-for-remote)
+
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-loveda)](https://paperswithcode.com/sota/semantic-segmentation-on-loveda?p=dynamic-dictionary-learning-for-remote)
 
 
 
