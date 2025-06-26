@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<style type="text/css">
+  .layered-paper-big {
+    /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+    box-shadow:
+      0px 0px 1px 1px rgba(0, 0, 0, 0.35),
+      /* The top layer shadow */
+      5px 5px 0 0px #fff,
+      /* The second layer */
+      5px 5px 1px 1px rgba(0, 0, 0, 0.35),
+      /* The second layer shadow */
+      10px 10px 0 0px #fff,
+      /* The third layer */
+      10px 10px 1px 1px rgba(0, 0, 0, 0.35);
+    /* The third layer shadow */
+    margin-left: 10px;
+    margin-right: 45px;
+  }
+
+  hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+  }
+
+  /* latex table */
+
+
+  .tg {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  .tg td {
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    overflow: hidden;
+    padding: 10px 5px;
+    word-break: normal;
+  }
+
+  .tg th {
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    overflow: hidden;
+    padding: 10px 5px;
+    word-break: normal;
+  }
+
+  .tg .tg-c3ow {
+    border-color: inherit;
+    text-align: center;
+    vertical-align: top;
+    /* padding: 20px; 将10px替换为您希望的间距大小 */
+  }
+
+  .tg .tg-7btt {
+    border-color: inherit;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: top;
+    /* padding: 20px; 将10px替换为您希望的间距大小 */
+  }
+
+  .legend {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-family: Arial, sans-serif;
+    align-items: center;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .legend-color {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #000;
+  }
+
+  .clear-sky {
+    background-color: rgb(79, 253, 199);
+  }
+
+  .thick-cloud {
+    background-color: rgb(77, 2, 115);
+  }
+
+  .thin-cloud {
+    background-color: rgb(251, 255, 41);
+  }
+
+  .cloud-shadow {
+    background-color: rgb(221, 53, 223);
+  }
+
+  /* latex table */
+</style>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>D2LS</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+  <script type="text/javascript" src="https://registry.npmmirror.com/echarts/5.5.1/files/dist/echarts.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Dynamic Dictionary Learning for Remote Sensing</br> Image
+              Segmentation </h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=po1KXtwAAAAJ&hl=en" target="_blank">Xuechao
+                  Zou</a><sup>1,*</sup>,</span>
+              <span class="author-block">
+                <a href="https://github.com/13546711268/" target="_blank">Yue Li</a><sup>2,*</sup>,</span>
+              <span class="author-block">
+                <a href="https://github.com/caixiaoshun/caixiaoshun" target="_blank">Shun
+                  Zhang</a><sup>2</sup>,</span>
+              <span class="author-block">
+                <a href="https://cslikai.cn/" target="_blank">Kai Li</a><sup>3</sup>,</span>
+              <span class="author-block">
+                <a href="https://cs.qhu.edu.cn/jxgz/jxysz/szgk/50127.htm" target="_blank">Shiying
+                  Wang</a><sup>2</sup>,</span>
+              <br>
+              <span class="author-block">
+                <a href="https://www.cs.tsinghua.edu.cn/info/1117/3542.htm" target="_blank">Pin
+                  Tao</a><sup>2,3</sup>,</span>
+              <span class="author-block">
+                <a href="https://www.cs.tsinghua.edu.cn/info/1116/5088.htm" target="_blank">Junliang
+                  Xing</a><sup>3</sup>,</span>
+              </span>
+              <span class="author-block">
+                <a href="https://faculty.bjtu.edu.cn/7968/" target="_blank">Congyan Lang</a><sup>1,†</sup>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>Beijing Jiaotong University, <sup>2</sup>Qinghai University,
+                <br><sup>3</sup>Tsinghua University
+              </span>
+              <br>
+              <span class="author-block"><br><strong>ICCV 2025</strong></span>
+              <span class="eql-cntrb"><small><br><sup>*</sup>Equal Contribution, <sup>†</sup>Corresponding
+                  Author</small></span>
+            </div>
+
+
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- Arxiv PDF link -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/pdf/2503.06683" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+
+                <!-- Github link -->
+                <span class="link-block">
+                  <a href="https://github.com/XavierJiezou/D2LS" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <!-- ArXiv abstract Link -->
+                <span class="link-block">
+                  <a href="http://arxiv.org/abs/2503.06683" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+
+                <!-- <span class="link-block">
+                  <a href="https://huggingface.co/datasets/XavierJiezou/cloud-adapter-datasets" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon ai">
+                      <i>
+                        <svg class="icon ai" width="500" height="463" viewBox="0 0 500 463" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M496.592 369.699C500.563 381.093 499.61 393.227 494.315 403.778C490.503 411.48 485.05 417.441 478.379 422.769C470.331 429.099 460.324 434.48 448.253 439.65C433.852 445.77 416.274 451.52 408.226 453.63C387.63 458.958 367.829 462.334 347.762 462.493C319.066 462.756 294.34 456.004 276.762 438.753C267.656 439.861 258.443 440.494 249.178 440.494C240.389 440.494 231.706 439.967 223.076 438.912C205.445 456.057 180.825 462.756 152.234 462.493C132.168 462.334 112.366 458.958 91.7177 453.63C83.7229 451.52 66.145 445.77 51.7439 439.65C39.6723 434.48 29.6656 429.099 21.6708 422.769C14.9467 417.441 9.49334 411.48 5.68127 403.778C0.439661 393.227 -0.566304 381.093 3.45755 369.699C-0.248631 360.994 -1.20165 351.024 1.71035 339.998C3.03399 334.987 5.20476 330.344 7.95792 326.229C7.37552 324.067 6.89901 321.851 6.58134 319.424C4.56941 304.97 9.59923 291.781 19.0765 281.547C23.7357 276.43 28.7655 272.895 34.0071 270.627C30.1421 254.273 28.1302 237.445 28.1302 220.247C28.1302 98.5969 127.085 0 249.178 0C291.111 0 330.343 11.6058 363.805 31.8633C369.84 35.5561 375.77 39.5126 381.436 43.7329C384.242 45.8431 387.048 48.006 389.748 50.2744C392.501 52.49 395.201 54.8112 397.796 57.1851C405.632 64.3069 412.991 71.9562 419.715 80.133C421.992 82.8235 424.163 85.6194 426.28 88.4681C430.569 94.1128 434.54 99.9685 438.193 106.035C443.752 115.109 448.623 124.604 452.859 134.469C455.665 141.064 458.101 147.816 460.271 154.727C463.501 165.067 465.99 175.723 467.684 186.696C468.213 190.336 468.69 194.028 469.06 197.721C469.802 205.107 470.225 212.598 470.225 220.247C470.225 237.234 468.213 253.904 464.454 269.994C470.278 272.262 475.784 275.955 480.92 281.547C490.397 291.781 495.427 305.022 493.415 319.477C493.098 321.851 492.621 324.067 492.039 326.229C494.792 330.344 496.963 334.987 498.286 339.998C501.198 351.024 500.245 360.994 496.592 369.699Z"
+                            fill="white" />
+                          <path
+                            d="M433.839 221.75C433.839 120.838 351.531 39.0323 250 39.0323C148.469 39.0323 66.1613 120.838 66.1613 221.75C66.1613 322.662 148.469 404.468 250 404.468C351.531 404.468 433.839 322.662 433.839 221.75ZM45 221.75C45 109.222 136.782 18 250 18C363.218 18 455 109.222 455 221.75C455 334.278 363.218 425.5 250 425.5C136.782 425.5 45 334.278 45 221.75Z"
+                            fill="black" />
+                          <path
+                            d="M250 405.5C352.173 405.5 435 323.232 435 221.75C435 120.268 352.173 38 250 38C147.827 38 65 120.268 65 221.75C65 323.232 147.827 405.5 250 405.5Z"
+                            fill="white" />
+                          <path
+                            d="M202.198 404.174C216.789 383.118 215.755 367.316 195.735 347.627C175.715 327.943 164.062 299.145 164.062 299.145C164.062 299.145 159.709 282.419 149.794 283.958C139.88 285.497 132.6 310.492 153.368 325.783C174.135 341.069 149.232 351.456 141.242 337.099C133.252 322.741 111.435 285.831 100.121 278.772C88.8117 271.713 80.8483 275.668 83.5151 290.218C86.182 304.769 133.48 340.036 128.878 347.668C124.276 355.296 108.058 338.7 108.058 338.7C108.058 338.7 57.3079 293.255 46.2587 305.097C35.2096 316.94 54.641 326.863 82.3328 343.359C110.03 359.85 112.177 364.206 108.248 370.446C104.314 376.685 43.1836 325.971 37.4417 347.47C31.705 368.969 99.8291 375.209 95.6247 390.051C91.4203 404.899 47.6372 361.958 38.6823 378.689C29.7221 395.425 100.465 415.088 101.038 415.234C123.889 421.067 181.924 433.426 202.198 404.174Z"
+                            fill="white" />
+                          <path
+                            d="M90.9935 255C82.4744 255 74.8603 258.477 69.551 264.784C66.2675 268.69 62.8367 274.986 62.5578 284.414C58.985 283.394 55.5489 282.824 52.3391 282.824C44.183 282.824 36.8163 285.93 31.6069 291.573C24.9137 298.815 21.9407 307.715 23.2351 316.62C23.8508 320.861 25.2768 324.663 27.4079 328.182C22.9142 331.795 19.6044 336.826 18.0047 342.876C16.7524 347.619 15.4685 357.497 22.1722 367.673C21.746 368.337 21.3461 369.027 20.9725 369.733C16.9418 377.336 16.684 385.927 20.2411 393.928C25.6346 406.054 39.0368 415.608 65.0625 425.863C81.2536 432.242 96.0661 436.321 96.1976 436.357C117.603 441.874 136.962 444.677 153.721 444.677C184.525 444.677 206.578 435.301 219.27 416.811C239.697 387.036 236.776 359.803 210.346 333.552C195.717 319.026 185.993 297.607 183.967 292.906C179.884 278.986 169.086 263.513 151.138 263.513H151.133C149.622 263.513 148.096 263.633 146.592 263.869C138.73 265.097 131.858 269.595 126.949 276.361C121.65 269.814 116.504 264.606 111.847 261.667C104.827 257.243 97.813 255 90.9935 255ZM90.9935 275.917C93.6771 275.917 96.9553 277.051 100.57 279.331C111.794 286.406 133.452 323.403 141.382 337.793C144.039 342.614 148.581 344.654 152.669 344.654C160.783 344.654 167.118 336.638 153.411 326.451C132.8 311.124 140.03 286.072 149.87 284.529C150.301 284.461 150.727 284.43 151.138 284.43C160.083 284.43 164.03 299.751 164.03 299.751C164.03 299.751 175.595 328.616 195.465 348.346C215.334 368.08 216.36 383.919 201.879 405.024C192.002 419.415 173.096 421.292 153.721 421.292C133.626 421.292 112.99 417.772 101.445 414.796C100.877 414.65 30.7019 396.255 39.5946 379.48C41.089 376.661 43.5516 375.532 46.6509 375.532C59.1744 375.532 81.9535 394.054 91.746 394.054C93.935 394.054 95.5662 392.371 96.1976 390.112C100.555 374.522 32.6646 369.738 38.3633 348.189C39.3683 344.377 42.094 342.829 45.9248 342.834C62.4737 342.834 99.6021 371.756 107.385 371.756C107.979 371.756 108.405 371.584 108.637 371.218C112.536 364.964 110.74 359.872 83.257 343.343C55.7738 326.808 36.1428 317.588 47.114 305.718C48.3768 304.347 50.1659 303.741 52.3391 303.741C69.0248 303.746 108.447 339.398 108.447 339.398C108.447 339.398 119.087 350.395 125.523 350.395C127.001 350.395 128.259 349.815 129.111 348.382C133.673 340.737 86.7366 305.388 84.0898 290.804C82.2955 280.921 85.3474 275.917 90.9935 275.917Z"
+                            fill="black" />
+                          <path
+                            d="M296.9 404.174C282.31 383.118 283.343 367.316 303.363 347.627C323.383 327.943 335.037 299.145 335.037 299.145C335.037 299.145 339.39 282.419 349.304 283.958C359.219 285.497 366.498 310.492 345.731 325.783C324.963 341.069 349.866 351.456 357.856 337.099C365.846 322.741 387.663 285.831 398.978 278.772C410.287 271.713 418.25 275.668 415.583 290.218C412.916 304.769 365.618 340.036 370.22 347.668C374.822 355.296 391.041 338.7 391.041 338.7C391.041 338.7 441.791 293.255 452.84 305.097C463.889 316.94 444.457 326.863 416.766 343.359C389.068 359.85 386.921 364.206 390.85 370.446C394.784 376.685 455.915 325.971 461.657 347.47C467.393 368.969 399.269 375.209 403.474 390.051C407.678 404.899 451.461 361.958 460.416 378.689C469.376 395.425 398.633 415.088 398.06 415.234C375.209 421.067 317.175 433.426 296.9 404.174Z"
+                            fill="white" />
+                          <path
+                            d="M408.105 255C416.624 255 424.238 258.477 429.547 264.784C432.831 268.69 436.262 274.986 436.541 284.414C440.113 283.394 443.549 282.824 446.759 282.824C454.915 282.824 462.282 285.93 467.491 291.573C474.185 298.815 477.158 307.715 475.863 316.62C475.248 320.861 473.822 324.663 471.69 328.182C476.184 331.795 479.494 336.826 481.094 342.876C482.346 347.619 483.63 357.497 476.926 367.673C477.352 368.337 477.752 369.027 478.126 369.733C482.157 377.336 482.414 385.927 478.857 393.928C473.464 406.054 460.062 415.608 434.036 425.863C417.845 432.242 403.032 436.321 402.901 436.357C381.495 441.874 362.136 444.677 345.377 444.677C314.573 444.677 292.52 435.301 279.829 416.811C259.402 387.036 262.322 359.803 288.753 333.552C303.381 319.026 313.105 297.607 315.131 292.906C319.214 278.986 330.012 263.513 347.961 263.513H347.966C349.476 263.513 351.002 263.633 352.507 263.869C360.368 265.097 367.24 269.595 372.15 276.361C377.449 269.814 382.595 264.606 387.252 261.667C394.271 257.243 401.285 255 408.105 255ZM408.105 275.917C405.421 275.917 402.143 277.051 398.528 279.331C387.304 286.406 365.646 323.403 357.716 337.793C355.059 342.614 350.518 344.654 346.429 344.654C338.315 344.654 331.98 336.638 345.687 326.451C366.299 311.124 359.069 286.072 349.229 284.529C348.797 284.461 348.371 284.43 347.961 284.43C339.015 284.43 335.069 299.751 335.069 299.751C335.069 299.751 323.503 328.616 303.634 348.346C283.764 368.08 282.738 383.919 297.219 405.024C307.096 419.415 326.002 421.292 345.377 421.292C365.472 421.292 386.108 417.772 397.653 414.796C398.221 414.65 468.397 396.255 459.504 379.48C458.009 376.661 455.547 375.532 452.447 375.532C439.924 375.532 417.145 394.054 407.352 394.054C405.163 394.054 403.532 392.371 402.901 390.112C398.543 374.522 466.434 369.738 460.735 348.189C459.73 344.377 457.004 342.829 453.174 342.834C436.625 342.834 399.496 371.756 391.714 371.756C391.119 371.756 390.693 371.584 390.461 371.218C386.562 364.964 388.358 359.872 415.841 343.343C443.325 326.808 462.956 317.588 451.984 305.718C450.722 304.347 448.932 303.741 446.759 303.741C430.074 303.746 390.651 339.398 390.651 339.398C390.651 339.398 380.011 350.395 373.576 350.395C372.097 350.395 370.84 349.815 369.987 348.382C365.425 340.737 412.362 305.388 415.009 290.804C416.803 280.921 413.751 275.917 408.105 275.917Z"
+                            fill="black" />
+                          <path
+                            d="M319.277 228.901C319.277 205.236 288.585 241.304 250.637 241.465C212.692 241.306 182 205.238 182 228.901C182 244.591 189.507 270.109 209.669 285.591C213.681 271.787 235.726 260.729 238.877 262.317C243.364 264.578 243.112 270.844 250.637 276.365C258.163 270.844 257.911 264.58 262.398 262.317C265.551 260.729 287.594 271.787 291.605 285.591C311.767 270.109 319.275 244.591 319.275 228.903L319.277 228.901Z"
+                            fill="#0E1116" />
+                          <path
+                            d="M262.4 262.315C257.913 264.576 258.165 270.842 250.639 276.363C243.114 270.842 243.366 264.578 238.879 262.315C235.726 260.727 213.683 271.785 209.672 285.589C219.866 293.417 233.297 298.678 250.627 298.806C250.631 298.806 250.635 298.806 250.641 298.806C250.646 298.806 250.65 298.806 250.656 298.806C267.986 298.68 281.417 293.417 291.611 285.589C287.6 271.785 265.555 260.727 262.404 262.315H262.4Z"
+                            fill="#FF323D" />
+                          <path
+                            d="M373 196C382.389 196 390 188.389 390 179C390 169.611 382.389 162 373 162C363.611 162 356 169.611 356 179C356 188.389 363.611 196 373 196Z"
+                            fill="black" />
+                          <path
+                            d="M128 196C137.389 196 145 188.389 145 179C145 169.611 137.389 162 128 162C118.611 162 111 169.611 111 179C111 188.389 118.611 196 128 196Z"
+                            fill="black" />
+                          <path
+                            d="M313.06 171.596C319.796 173.968 322.476 187.779 329.281 184.171C342.167 177.337 347.06 161.377 340.208 148.524C333.356 135.671 317.354 130.792 304.467 137.626C291.58 144.46 286.688 160.419 293.54 173.272C296.774 179.339 307.039 169.475 313.06 171.596Z"
+                            fill="#0E1116" />
+                          <path
+                            d="M188.554 171.596C181.818 173.968 179.138 187.779 172.334 184.171C159.447 177.337 154.555 161.377 161.407 148.524C168.259 135.671 184.26 130.792 197.147 137.626C210.034 144.46 214.926 160.419 208.074 173.272C204.84 179.339 194.575 169.475 188.554 171.596Z"
+                            fill="#0E1116" />
+                        </svg>
+                      </i>
+                    </span>
+                    <span>Dataset</span>
+                  </a>
+                </span>
+
+
+                <span class="link-block">
+                  <a href="https://huggingface.co/XavierJiezou/cloud-adapter-models" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon ai">
+                      <i>
+                        <svg class="icon ai" width="500" height="463" viewBox="0 0 500 463" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M496.592 369.699C500.563 381.093 499.61 393.227 494.315 403.778C490.503 411.48 485.05 417.441 478.379 422.769C470.331 429.099 460.324 434.48 448.253 439.65C433.852 445.77 416.274 451.52 408.226 453.63C387.63 458.958 367.829 462.334 347.762 462.493C319.066 462.756 294.34 456.004 276.762 438.753C267.656 439.861 258.443 440.494 249.178 440.494C240.389 440.494 231.706 439.967 223.076 438.912C205.445 456.057 180.825 462.756 152.234 462.493C132.168 462.334 112.366 458.958 91.7177 453.63C83.7229 451.52 66.145 445.77 51.7439 439.65C39.6723 434.48 29.6656 429.099 21.6708 422.769C14.9467 417.441 9.49334 411.48 5.68127 403.778C0.439661 393.227 -0.566304 381.093 3.45755 369.699C-0.248631 360.994 -1.20165 351.024 1.71035 339.998C3.03399 334.987 5.20476 330.344 7.95792 326.229C7.37552 324.067 6.89901 321.851 6.58134 319.424C4.56941 304.97 9.59923 291.781 19.0765 281.547C23.7357 276.43 28.7655 272.895 34.0071 270.627C30.1421 254.273 28.1302 237.445 28.1302 220.247C28.1302 98.5969 127.085 0 249.178 0C291.111 0 330.343 11.6058 363.805 31.8633C369.84 35.5561 375.77 39.5126 381.436 43.7329C384.242 45.8431 387.048 48.006 389.748 50.2744C392.501 52.49 395.201 54.8112 397.796 57.1851C405.632 64.3069 412.991 71.9562 419.715 80.133C421.992 82.8235 424.163 85.6194 426.28 88.4681C430.569 94.1128 434.54 99.9685 438.193 106.035C443.752 115.109 448.623 124.604 452.859 134.469C455.665 141.064 458.101 147.816 460.271 154.727C463.501 165.067 465.99 175.723 467.684 186.696C468.213 190.336 468.69 194.028 469.06 197.721C469.802 205.107 470.225 212.598 470.225 220.247C470.225 237.234 468.213 253.904 464.454 269.994C470.278 272.262 475.784 275.955 480.92 281.547C490.397 291.781 495.427 305.022 493.415 319.477C493.098 321.851 492.621 324.067 492.039 326.229C494.792 330.344 496.963 334.987 498.286 339.998C501.198 351.024 500.245 360.994 496.592 369.699Z"
+                            fill="white" />
+                          <path
+                            d="M433.839 221.75C433.839 120.838 351.531 39.0323 250 39.0323C148.469 39.0323 66.1613 120.838 66.1613 221.75C66.1613 322.662 148.469 404.468 250 404.468C351.531 404.468 433.839 322.662 433.839 221.75ZM45 221.75C45 109.222 136.782 18 250 18C363.218 18 455 109.222 455 221.75C455 334.278 363.218 425.5 250 425.5C136.782 425.5 45 334.278 45 221.75Z"
+                            fill="black" />
+                          <path
+                            d="M250 405.5C352.173 405.5 435 323.232 435 221.75C435 120.268 352.173 38 250 38C147.827 38 65 120.268 65 221.75C65 323.232 147.827 405.5 250 405.5Z"
+                            fill="white" />
+                          <path
+                            d="M202.198 404.174C216.789 383.118 215.755 367.316 195.735 347.627C175.715 327.943 164.062 299.145 164.062 299.145C164.062 299.145 159.709 282.419 149.794 283.958C139.88 285.497 132.6 310.492 153.368 325.783C174.135 341.069 149.232 351.456 141.242 337.099C133.252 322.741 111.435 285.831 100.121 278.772C88.8117 271.713 80.8483 275.668 83.5151 290.218C86.182 304.769 133.48 340.036 128.878 347.668C124.276 355.296 108.058 338.7 108.058 338.7C108.058 338.7 57.3079 293.255 46.2587 305.097C35.2096 316.94 54.641 326.863 82.3328 343.359C110.03 359.85 112.177 364.206 108.248 370.446C104.314 376.685 43.1836 325.971 37.4417 347.47C31.705 368.969 99.8291 375.209 95.6247 390.051C91.4203 404.899 47.6372 361.958 38.6823 378.689C29.7221 395.425 100.465 415.088 101.038 415.234C123.889 421.067 181.924 433.426 202.198 404.174Z"
+                            fill="white" />
+                          <path
+                            d="M90.9935 255C82.4744 255 74.8603 258.477 69.551 264.784C66.2675 268.69 62.8367 274.986 62.5578 284.414C58.985 283.394 55.5489 282.824 52.3391 282.824C44.183 282.824 36.8163 285.93 31.6069 291.573C24.9137 298.815 21.9407 307.715 23.2351 316.62C23.8508 320.861 25.2768 324.663 27.4079 328.182C22.9142 331.795 19.6044 336.826 18.0047 342.876C16.7524 347.619 15.4685 357.497 22.1722 367.673C21.746 368.337 21.3461 369.027 20.9725 369.733C16.9418 377.336 16.684 385.927 20.2411 393.928C25.6346 406.054 39.0368 415.608 65.0625 425.863C81.2536 432.242 96.0661 436.321 96.1976 436.357C117.603 441.874 136.962 444.677 153.721 444.677C184.525 444.677 206.578 435.301 219.27 416.811C239.697 387.036 236.776 359.803 210.346 333.552C195.717 319.026 185.993 297.607 183.967 292.906C179.884 278.986 169.086 263.513 151.138 263.513H151.133C149.622 263.513 148.096 263.633 146.592 263.869C138.73 265.097 131.858 269.595 126.949 276.361C121.65 269.814 116.504 264.606 111.847 261.667C104.827 257.243 97.813 255 90.9935 255ZM90.9935 275.917C93.6771 275.917 96.9553 277.051 100.57 279.331C111.794 286.406 133.452 323.403 141.382 337.793C144.039 342.614 148.581 344.654 152.669 344.654C160.783 344.654 167.118 336.638 153.411 326.451C132.8 311.124 140.03 286.072 149.87 284.529C150.301 284.461 150.727 284.43 151.138 284.43C160.083 284.43 164.03 299.751 164.03 299.751C164.03 299.751 175.595 328.616 195.465 348.346C215.334 368.08 216.36 383.919 201.879 405.024C192.002 419.415 173.096 421.292 153.721 421.292C133.626 421.292 112.99 417.772 101.445 414.796C100.877 414.65 30.7019 396.255 39.5946 379.48C41.089 376.661 43.5516 375.532 46.6509 375.532C59.1744 375.532 81.9535 394.054 91.746 394.054C93.935 394.054 95.5662 392.371 96.1976 390.112C100.555 374.522 32.6646 369.738 38.3633 348.189C39.3683 344.377 42.094 342.829 45.9248 342.834C62.4737 342.834 99.6021 371.756 107.385 371.756C107.979 371.756 108.405 371.584 108.637 371.218C112.536 364.964 110.74 359.872 83.257 343.343C55.7738 326.808 36.1428 317.588 47.114 305.718C48.3768 304.347 50.1659 303.741 52.3391 303.741C69.0248 303.746 108.447 339.398 108.447 339.398C108.447 339.398 119.087 350.395 125.523 350.395C127.001 350.395 128.259 349.815 129.111 348.382C133.673 340.737 86.7366 305.388 84.0898 290.804C82.2955 280.921 85.3474 275.917 90.9935 275.917Z"
+                            fill="black" />
+                          <path
+                            d="M296.9 404.174C282.31 383.118 283.343 367.316 303.363 347.627C323.383 327.943 335.037 299.145 335.037 299.145C335.037 299.145 339.39 282.419 349.304 283.958C359.219 285.497 366.498 310.492 345.731 325.783C324.963 341.069 349.866 351.456 357.856 337.099C365.846 322.741 387.663 285.831 398.978 278.772C410.287 271.713 418.25 275.668 415.583 290.218C412.916 304.769 365.618 340.036 370.22 347.668C374.822 355.296 391.041 338.7 391.041 338.7C391.041 338.7 441.791 293.255 452.84 305.097C463.889 316.94 444.457 326.863 416.766 343.359C389.068 359.85 386.921 364.206 390.85 370.446C394.784 376.685 455.915 325.971 461.657 347.47C467.393 368.969 399.269 375.209 403.474 390.051C407.678 404.899 451.461 361.958 460.416 378.689C469.376 395.425 398.633 415.088 398.06 415.234C375.209 421.067 317.175 433.426 296.9 404.174Z"
+                            fill="white" />
+                          <path
+                            d="M408.105 255C416.624 255 424.238 258.477 429.547 264.784C432.831 268.69 436.262 274.986 436.541 284.414C440.113 283.394 443.549 282.824 446.759 282.824C454.915 282.824 462.282 285.93 467.491 291.573C474.185 298.815 477.158 307.715 475.863 316.62C475.248 320.861 473.822 324.663 471.69 328.182C476.184 331.795 479.494 336.826 481.094 342.876C482.346 347.619 483.63 357.497 476.926 367.673C477.352 368.337 477.752 369.027 478.126 369.733C482.157 377.336 482.414 385.927 478.857 393.928C473.464 406.054 460.062 415.608 434.036 425.863C417.845 432.242 403.032 436.321 402.901 436.357C381.495 441.874 362.136 444.677 345.377 444.677C314.573 444.677 292.52 435.301 279.829 416.811C259.402 387.036 262.322 359.803 288.753 333.552C303.381 319.026 313.105 297.607 315.131 292.906C319.214 278.986 330.012 263.513 347.961 263.513H347.966C349.476 263.513 351.002 263.633 352.507 263.869C360.368 265.097 367.24 269.595 372.15 276.361C377.449 269.814 382.595 264.606 387.252 261.667C394.271 257.243 401.285 255 408.105 255ZM408.105 275.917C405.421 275.917 402.143 277.051 398.528 279.331C387.304 286.406 365.646 323.403 357.716 337.793C355.059 342.614 350.518 344.654 346.429 344.654C338.315 344.654 331.98 336.638 345.687 326.451C366.299 311.124 359.069 286.072 349.229 284.529C348.797 284.461 348.371 284.43 347.961 284.43C339.015 284.43 335.069 299.751 335.069 299.751C335.069 299.751 323.503 328.616 303.634 348.346C283.764 368.08 282.738 383.919 297.219 405.024C307.096 419.415 326.002 421.292 345.377 421.292C365.472 421.292 386.108 417.772 397.653 414.796C398.221 414.65 468.397 396.255 459.504 379.48C458.009 376.661 455.547 375.532 452.447 375.532C439.924 375.532 417.145 394.054 407.352 394.054C405.163 394.054 403.532 392.371 402.901 390.112C398.543 374.522 466.434 369.738 460.735 348.189C459.73 344.377 457.004 342.829 453.174 342.834C436.625 342.834 399.496 371.756 391.714 371.756C391.119 371.756 390.693 371.584 390.461 371.218C386.562 364.964 388.358 359.872 415.841 343.343C443.325 326.808 462.956 317.588 451.984 305.718C450.722 304.347 448.932 303.741 446.759 303.741C430.074 303.746 390.651 339.398 390.651 339.398C390.651 339.398 380.011 350.395 373.576 350.395C372.097 350.395 370.84 349.815 369.987 348.382C365.425 340.737 412.362 305.388 415.009 290.804C416.803 280.921 413.751 275.917 408.105 275.917Z"
+                            fill="black" />
+                          <path
+                            d="M319.277 228.901C319.277 205.236 288.585 241.304 250.637 241.465C212.692 241.306 182 205.238 182 228.901C182 244.591 189.507 270.109 209.669 285.591C213.681 271.787 235.726 260.729 238.877 262.317C243.364 264.578 243.112 270.844 250.637 276.365C258.163 270.844 257.911 264.58 262.398 262.317C265.551 260.729 287.594 271.787 291.605 285.591C311.767 270.109 319.275 244.591 319.275 228.903L319.277 228.901Z"
+                            fill="#0E1116" />
+                          <path
+                            d="M262.4 262.315C257.913 264.576 258.165 270.842 250.639 276.363C243.114 270.842 243.366 264.578 238.879 262.315C235.726 260.727 213.683 271.785 209.672 285.589C219.866 293.417 233.297 298.678 250.627 298.806C250.631 298.806 250.635 298.806 250.641 298.806C250.646 298.806 250.65 298.806 250.656 298.806C267.986 298.68 281.417 293.417 291.611 285.589C287.6 271.785 265.555 260.727 262.404 262.315H262.4Z"
+                            fill="#FF323D" />
+                          <path
+                            d="M373 196C382.389 196 390 188.389 390 179C390 169.611 382.389 162 373 162C363.611 162 356 169.611 356 179C356 188.389 363.611 196 373 196Z"
+                            fill="black" />
+                          <path
+                            d="M128 196C137.389 196 145 188.389 145 179C145 169.611 137.389 162 128 162C118.611 162 111 169.611 111 179C111 188.389 118.611 196 128 196Z"
+                            fill="black" />
+                          <path
+                            d="M313.06 171.596C319.796 173.968 322.476 187.779 329.281 184.171C342.167 177.337 347.06 161.377 340.208 148.524C333.356 135.671 317.354 130.792 304.467 137.626C291.58 144.46 286.688 160.419 293.54 173.272C296.774 179.339 307.039 169.475 313.06 171.596Z"
+                            fill="#0E1116" />
+                          <path
+                            d="M188.554 171.596C181.818 173.968 179.138 187.779 172.334 184.171C159.447 177.337 154.555 161.377 161.407 148.524C168.259 135.671 184.26 130.792 197.147 137.626C210.034 144.46 214.926 160.419 208.074 173.272C204.84 179.339 194.575 169.475 188.554 171.596Z"
+                            fill="#0E1116" />
+                        </svg>
+                      </i>
+                    </span>
+                    <span>Checkpoint</span>
+                  </a>
+                </span> -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Teaser video-->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="rows is-centered">
+        <div class="row has-text-centered">
+          <div class="content ">
+            <!-- <img src="https://github.com/user-attachments/assets/f9351412-d54a-4ac6-9344-d412fe3b3581" alt="logo"> -->
+            <img src="static/images/pipeline.svg" alt="teaser" style="width: 100%; height: auto;">
+          </div>
+        </div>
+        <div class="row has-text-centered ">
+          <div class="context has-text-justified">
+            <p style="max-width: 750px;">
+              Unlike traditional segmentation methods that rely solely on implicit feature learning, our dynamic
+              dictionary learning framework explicitly constructs and refines class-aware semantic embeddings through
+              iterative cross-attention. By progressively updating a semantic dictionary via multi-stage interactions
+              between image features and dictionary entries, our approach effectively tackles intra-class heterogeneity
+              and inter-class similarity. This adaptive mechanism not only preserves robust generalization but also
+              fine-tunes the model to capture subtle morphological variations, leading to improved performance across
+              diverse remote sensing scenarios.
+
+            </p>
+          </div>
+        </div>
+      </div>
+  </section>
+
+
+
+  <!-- Paper abstract -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Remote sensing image segmentation faces persistent challenges in distinguishing morphologically similar
+              categories and adapting to diverse scene variations. While existing methods rely on implicit
+              representation learning paradigms, they often fail to dynamically adjust semantic embeddings according to
+              contextual cues, leading to suboptimal performance in fine-grained scenarios such as cloud thickness
+              differentiation. This paper introduces a dynamic dictionary learning framework that explicitly models
+              class ID embeddings through iterative refinement. The core innovation lies in a novel dictionary
+              construction mechanism, where class-aware semantic embeddings are progressively updated via multi-stage
+              alternating cross-attention querying between image features and dictionary embeddings. This process
+              enables adaptive representation learning tailored to input-specific characteristics, effectively resolving
+              ambiguities in intra-class heterogeneity and inter-class homogeneity. To further enhance discriminability,
+              a contrastive constraint is applied to the dictionary space, ensuring compact intra-class distributions
+              while maximizing inter-class separability. Extensive experiments across both coarse- and fine-grained
+              datasets demonstrate consistent improvements over state-of-the-art methods, particularly in two online
+              test benchmarks (LoveDA and UAVid). Code is available at <a
+                href="https://github.com/XavierJiezou/D2LS" style="color: blue;"><span class="icon"><i
+                    class="fab fa-github"></i></span>GitHub</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End paper abstract -->
+
+
+  <!-- Method -->
+  <section class="section" id="method">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Method</h2>
+          <div class="content has-text-justified">
+            <center>
+              <table align=center width=850px>
+                <tr>
+                  <td width=850px>
+                    <center>
+                      <img class="round" style="width:850px" src="static/images/network.svg" />
+                    </center>
+                  </td>
+                </tr>
+              </table>
+              <table align=center width=850px>
+                <tr>
+                  <td>
+                    <strong>Framework:</strong> Our network architecture is built upon three key modules: an encoder, a
+                    dictionary generator, and a decoder. The encoder extracts rich, multi-scale features from the input
+                    imagery, which are then channeled into the dictionary generator. Here, a static set of
+                    class-specific embeddings is transformed into a dynamic dictionary through a dedicated modulator
+                    that leverages attention mechanisms to capture input-dependent contextual cues. Finally, the decoder
+                    employs iterative alternating cross-attention between the dynamic dictionary and image features,
+                    progressively refining both to produce precise segmentation maps tailored for complex remote sensing
+                    tasks.
+                  </td>
+                </tr>
+              </table>
+            </center>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Method -->
+
+  <!-- t-sne -->
+  <section class="section" id="t-sne">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">t-SNE</h2>
+          <div class="content has-text-justified">
+            <center>
+              <table align=center width=850px>
+                <tr>
+                  <td width=850px>
+                    <center>
+                      <img class="round" style="width:850px" src="static/images/tsne.svg" />
+                    </center>
+                  </td>
+                </tr>
+              </table>
+              <table align=center width=850px>
+                <tr>
+                  <td>
+                    The figure illustrates the evolution of the dynamic dictionary on the
+                    Grass dataset via t-SNE visualization. As iterative optimization progresses from the initial state
+                    (D0) to the final state (D3), intra-class distances significantly shrink—from 33.61 to 28.51—while
+                    inter-class distances gradually expand, enhancing class discriminability. This validates the
+                    effectiveness of dynamic dictionary learning in improving semantic recognition for fine-grained
+                    segmentation tasks.
+                  </td>
+                </tr>
+              </table>
+            </center>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End t-sne -->
+
+  <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Results</h2>
+            <h3 class="title is-4">Visualization on the Six Datasets: LoveDA, UAVid, Potsdam, Vaihingen, Cloud, and
+              Grass.</h3>
+            <div id="results-carousel" class="carousel results-carousel">
+              <div class="item ">
+                <img src="static/images/loveda.svg" alt="MY ALT TEXT" />
+              </div>
+              <div class="item ">
+                <img src="static/images/uavid.svg" alt="MY ALT TEXT" />
+              </div>
+              <div class="item ">
+                <img src="static/images/potsdam.svg" alt="MY ALT TEXT" />
+              </div>
+              <div class="item">
+                <img src="static/images/vaihingen.svg" alt="MY ALT TEXT" />
+              </div>
+              <div class="item">
+                <img src="static/images/cloud.svg" alt="MY ALT TEXT" />
+              </div>
+              <div class="item">
+                <img src="static/images/grass.svg" alt="MY ALT TEXT" />
+              </div>
+            </div>
+            <!-- <div class="title is-5 legend is-centered">
+              <div class="legend-item is-centered has-text-centered ">
+                <div class="legend-color clear-sky"></div>
+                <span>Clear Sky</span>
+              </div>
+              <div class="legend-item is-centered has-text-centered">
+                <div class="legend-color thick-cloud"></div>
+                <span>Thick Cloud</span>
+              </div>
+              <div class="legend-item is-centered has-text-centered">
+                <div class="legend-color thin-cloud"></div>
+                <span>Thin Cloud</span>
+              </div>
+              <div class="legend-item is-centered has-text-centered">
+                <div class="legend-color cloud-shadow"></div>
+                <span>Cloud Shadow</span> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- LoveDA 数据集雷达图容器 -->
+  <div id="lovedaRadar" style="width: 100%; height: 500px;"></div>
+
+  <!-- 引入 ECharts 库（使用 CDN 方式） -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+
+  <script>
+    // 初始化 ECharts 实例
+    var chartDom = document.getElementById('lovedaRadar');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    // 配置项
+    option = {
+      title: {
+        text: 'LoveDA Dataset Segmentation Performance',
+        left: 'center'
+      },
+      tooltip: {},
+      legend: {
+        data: ['TransUNet', 'DC-Swin', 'UNetFormer', 'Hi-Resnet', 'AerialFormer', 'SFA-Net', 'Ours'],
+        bottom: 10,
+        left: 'center'
+      },
+      radar: {
+        // 设置每个指标及其最大值（可根据实际数据调整）
+        indicator: [{
+            name: 'Background',
+            max: 50
+          },
+          {
+            name: 'Building',
+            max: 65
+          },
+          {
+            name: 'Road',
+            max: 65
+          },
+          {
+            name: 'Water',
+            max: 85
+          },
+          {
+            name: 'Barren',
+            max: 30
+          },
+          {
+            name: 'Forest',
+            max: 50
+          },
+          {
+            name: 'Agriculture',
+            max: 70
+          },
+          {
+            name: 'mIoU',
+            max: 60
+          }
+        ]
+      },
+      series: [{
+        name: 'Segmentation Performance',
+        type: 'radar',
+        data: [{
+            value: [43.0, 56.1, 53.7, 78.0, 9.3, 44.9, 56.9, 48.9],
+            name: 'TransUNet'
+          },
+          {
+            value: [41.3, 54.5, 56.2, 78.1, 14.5, 47.2, 62.4, 50.6],
+            name: 'DC-Swin'
+          },
+          {
+            value: [44.7, 58.8, 54.9, 79.6, 20.1, 46.0, 62.5, 52.4],
+            name: 'UNetFormer'
+          },
+          {
+            value: [46.7, 58.3, 55.9, 80.1, 17.0, 46.7, 62.7, 52.5],
+            name: 'Hi-Resnet'
+          },
+          {
+            value: [47.8, 60.7, 59.3, 81.5, 17.9, 47.9, 64.0, 54.1],
+            name: 'AerialFormer'
+          },
+          {
+            value: [48.4, 60.3, 59.1, 81.9, 24.1, 46.2, 64.0, 54.9],
+            name: 'SFA-Net'
+          },
+          {
+            value: [47.6, 61.2, 59.1, 81.6, 23.8, 48.8, 64.8, 55.3],
+            name: 'Ours',
+            lineStyle: {
+              color: '#000000'
+            },
+            itemStyle: {
+              color: '#000000'
+            }
+          }
+        ]
+      }]
+    };
+
+    // 使用配置项生成图表
+    myChart.setOption(option);
+  </script>
+
+
+  <!-- 第一部分：包含 hero is-light -->
+  <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h3 class="title is-4 has-text-centered">
+          Comparison of semantic segmentation performance on the LoveDA dataset.
+        </h3>
+        <br><br>
+        <div class="columns is-centered">
+          <div class="column is-12">
+            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <th class="has-text-centered">Method</th>
+                  <th class="has-text-centered">Background</th>
+                  <th class="has-text-centered">Building</th>
+                  <th class="has-text-centered">Road</th>
+                  <th class="has-text-centered">Water</th>
+                  <th class="has-text-centered">Barren</th>
+                  <th class="has-text-centered">Forest</th>
+                  <th class="has-text-centered">Agriculture</th>
+                  <th class="has-text-centered">mIoU ↑</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="has-text-centered">TransUNet</td>
+                  <td class="has-text-centered">43.0</td>
+                  <td class="has-text-centered">56.1</td>
+                  <td class="has-text-centered">53.7</td>
+                  <td class="has-text-centered">78.0</td>
+                  <td class="has-text-centered">9.3</td>
+                  <td class="has-text-centered">44.9</td>
+                  <td class="has-text-centered">56.9</td>
+                  <td class="has-text-centered">48.9</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">DC-Swin</td>
+                  <td class="has-text-centered">41.3</td>
+                  <td class="has-text-centered">54.5</td>
+                  <td class="has-text-centered">56.2</td>
+                  <td class="has-text-centered">78.1</td>
+                  <td class="has-text-centered">14.5</td>
+                  <td class="has-text-centered">47.2</td>
+                  <td class="has-text-centered">62.4</td>
+                  <td class="has-text-centered">50.6</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">UNetFormer</td>
+                  <td class="has-text-centered">44.7</td>
+                  <td class="has-text-centered">58.8</td>
+                  <td class="has-text-centered">54.9</td>
+                  <td class="has-text-centered">79.6</td>
+                  <td class="has-text-centered">20.1</td>
+                  <td class="has-text-centered">46.0</td>
+                  <td class="has-text-centered">62.5</td>
+                  <td class="has-text-centered">52.4</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">Hi-Resnet</td>
+                  <td class="has-text-centered">46.7</td>
+                  <td class="has-text-centered">58.3</td>
+                  <td class="has-text-centered">55.9</td>
+                  <td class="has-text-centered">80.1</td>
+                  <td class="has-text-centered">17.0</td>
+                  <td class="has-text-centered">46.7</td>
+                  <td class="has-text-centered">62.7</td>
+                  <td class="has-text-centered">52.5</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">AerialFormer</td>
+                  <td class="has-text-centered"><u>47.8</u></td>
+                  <td class="has-text-centered"><u>60.7</u></td>
+                  <td class="has-text-centered"><strong>59.3</strong></td>
+                  <td class="has-text-centered">81.5</td>
+                  <td class="has-text-centered">17.9</td>
+                  <td class="has-text-centered"><u>47.9</u></td>
+                  <td class="has-text-centered">64.0</td>
+                  <td class="has-text-centered">54.1</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">SFA-Net</td>
+                  <td class="has-text-centered"><strong>48.4</strong></td>
+                  <td class="has-text-centered">60.3</td>
+                  <td class="has-text-centered">59.1</td>
+                  <td class="has-text-centered"><strong>81.9</strong></td>
+                  <td class="has-text-centered"><strong>24.1</strong></td>
+                  <td class="has-text-centered">46.2</td>
+                  <td class="has-text-centered"><u>64.0</u></td>
+                  <td class="has-text-centered"><u>54.9</u></td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">Ours</td>
+                  <td class="has-text-centered">47.6</td>
+                  <td class="has-text-centered"><strong>61.2</strong></td>
+                  <td class="has-text-centered"><u>59.1</u></td>
+                  <td class="has-text-centered"><u>81.6</u></td>
+                  <td class="has-text-centered"><u>23.8</u></td>
+                  <td class="has-text-centered"><strong>48.8</strong></td>
+                  <td class="has-text-centered"><strong>64.8</strong></td>
+                  <td class="has-text-centered"><strong>55.3</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+  </section>
+
+  <!-- ECharts 雷达图容器 -->
+  <div id="radarChart" style="width: 100%; height: 500px;"></div>
+
+  <!-- 引入 ECharts 库（使用 CDN 方式） -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+
+  <script>
+    // 初始化 ECharts 实例
+    var chartDom = document.getElementById('radarChart');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    // 配置项
+    option = {
+      title: {
+        text: 'UAVid Dataset Segmentation Performance',
+        left: 'center'
+      },
+      tooltip: {},
+      legend: {
+        data: ['DANet', 'ABCNet', 'BANet', 'SegFormer', 'UNetFormer', 'SFA-Net', 'Ours'],
+        bottom: 10,
+        left: 'center'
+      },
+      radar: {
+        // 设置雷达图各轴指标及最大值
+        indicator: [{
+            name: 'Clutter',
+            max: 75
+          },
+          {
+            name: 'Building',
+            max: 90
+          },
+          {
+            name: 'Road',
+            max: 85
+          },
+          {
+            name: 'Tree',
+            max: 85
+          },
+          {
+            name: 'Vegetation',
+            max: 70
+          },
+          {
+            name: 'Moving Car',
+            max: 80
+          },
+          {
+            name: 'Static Car',
+            max: 70
+          },
+          {
+            name: 'Human',
+            max: 45
+          },
+          {
+            name: 'mIoU',
+            max: 75
+          }
+        ]
+      },
+      series: [{
+        name: 'Segmentation Performance',
+        type: 'radar',
+        data: [{
+            value: [64.9, 58.9, 77.9, 68.3, 61.5, 59.6, 47.4, 9.1, 60.6],
+            name: 'DANet'
+          },
+          {
+            value: [67.4, 86.4, 81.2, 79.9, 63.1, 69.8, 48.4, 13.9, 63.8],
+            name: 'ABCNet'
+          },
+          {
+            value: [66.7, 85.4, 80.7, 78.9, 62.1, 69.3, 52.8, 21.0, 64.6],
+            name: 'BANet'
+          },
+          {
+            value: [66.6, 86.3, 80.1, 79.6, 62.3, 72.5, 52.5, 28.5, 66.0],
+            name: 'SegFormer'
+          },
+          {
+            value: [68.4, 87.4, 81.5, 80.2, 63.5, 73.6, 56.4, 31.0, 67.8],
+            name: 'UNetFormer'
+          },
+          {
+            value: [70.2, 89.0, 82.7, 80.8, 64.6, 77.5, 67.5, 30.7, 70.4],
+            name: 'SFA-Net'
+          },
+          {
+            value: [71.0, 89.7, 83.2, 82.1, 66.1, 75.0, 59.0, 41.4, 70.9],
+            name: 'Ours',
+            lineStyle: {
+              color: '#000000'
+            },
+            itemStyle: {
+              color: '#000000'
+            }
+          }
+        ]
+      }]
+    };
+
+    // 使用配置项生成图表
+    myChart.setOption(option);
+  </script>
+
+
+  <!-- 第二部分：普通容器，不含 hero -->
+  <section class="hero is-light is-small">
+    <div class="container is-max-desktop" style="margin-top:20px; margin-bottom:20px;">
+      <h3 class="title is-4 has-text-centered">
+        Comparison of semantic segmentation performance on the UAVid dataset.
+      </h3>
+      <br><br>
+      <div class="columns is-centered">
+        <div class="column is-12">
+          <table class="table is-striped is-hoverable is-bordered is-fullwidth">
+            <thead>
+              <tr>
+                <th class="has-text-centered">Method</th>
+                <th class="has-text-centered">Clutter</th>
+                <th class="has-text-centered">Building</th>
+                <th class="has-text-centered">Road</th>
+                <th class="has-text-centered">Tree</th>
+                <th class="has-text-centered">Vegetation</th>
+                <th class="has-text-centered">Moving Car</th>
+                <th class="has-text-centered">Static Car</th>
+                <th class="has-text-centered">Human</th>
+                <th class="has-text-centered">mIoU ↑</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="has-text-centered">DANet</td>
+                <td class="has-text-centered">64.9</td>
+                <td class="has-text-centered">58.9</td>
+                <td class="has-text-centered">77.9</td>
+                <td class="has-text-centered">68.3</td>
+                <td class="has-text-centered">61.5</td>
+                <td class="has-text-centered">59.6</td>
+                <td class="has-text-centered">47.4</td>
+                <td class="has-text-centered">9.1</td>
+                <td class="has-text-centered">60.6</td>
+              </tr>
+              <tr>
+                <td class="has-text-centered">ABCNet</td>
+                <td class="has-text-centered">67.4</td>
+                <td class="has-text-centered">86.4</td>
+                <td class="has-text-centered">81.2</td>
+                <td class="has-text-centered">79.9</td>
+                <td class="has-text-centered">63.1</td>
+                <td class="has-text-centered">69.8</td>
+                <td class="has-text-centered">48.4</td>
+                <td class="has-text-centered">13.9</td>
+                <td class="has-text-centered">63.8</td>
+              </tr>
+              <tr>
+                <td class="has-text-centered">BANet</td>
+                <td class="has-text-centered">66.7</td>
+                <td class="has-text-centered">85.4</td>
+                <td class="has-text-centered">80.7</td>
+                <td class="has-text-centered">78.9</td>
+                <td class="has-text-centered">62.1</td>
+                <td class="has-text-centered">69.3</td>
+                <td class="has-text-centered">52.8</td>
+                <td class="has-text-centered">21.0</td>
+                <td class="has-text-centered">64.6</td>
+              </tr>
+              <tr>
+                <td class="has-text-centered">SegFormer</td>
+                <td class="has-text-centered">66.6</td>
+                <td class="has-text-centered">86.3</td>
+                <td class="has-text-centered">80.1</td>
+                <td class="has-text-centered">79.6</td>
+                <td class="has-text-centered">62.3</td>
+                <td class="has-text-centered">72.5</td>
+                <td class="has-text-centered">52.5</td>
+                <td class="has-text-centered">28.5</td>
+                <td class="has-text-centered">66.0</td>
+              </tr>
+              <tr>
+                <td class="has-text-centered">UNetFormer</td>
+                <td class="has-text-centered">68.4</td>
+                <td class="has-text-centered">87.4</td>
+                <td class="has-text-centered">81.5</td>
+                <td class="has-text-centered">80.2</td>
+                <td class="has-text-centered">63.5</td>
+                <td class="has-text-centered">73.6</td>
+                <td class="has-text-centered">56.4</td>
+                <td class="has-text-centered"><u>31.0</u></td>
+                <td class="has-text-centered">67.8</td>
+              </tr>
+              <tr>
+                <td class="has-text-centered">SFA-Net</td>
+                <td class="has-text-centered"><u>70.2</u></td>
+                <td class="has-text-centered"><u>89.0</u></td>
+                <td class="has-text-centered"><u>82.7</u></td>
+                <td class="has-text-centered"><u>80.8</u></td>
+                <td class="has-text-centered"><u>64.6</u></td>
+                <td class="has-text-centered"><strong>77.5</strong></td>
+                <td class="has-text-centered"><strong>67.5</strong></td>
+                <td class="has-text-centered">30.7</td>
+                <td class="has-text-centered"><u>70.4</u></td>
+              </tr>
+              <tr>
+                <td class="has-text-centered">Ours</td>
+                <td class="has-text-centered"><strong>71.0</strong></td>
+                <td class="has-text-centered"><strong>89.7</strong></td>
+                <td class="has-text-centered"><strong>83.2</strong></td>
+                <td class="has-text-centered"><strong>82.1</strong></td>
+                <td class="has-text-centered"><strong>66.1</strong></td>
+                <td class="has-text-centered"><u>75.0</u></td>
+                <td class="has-text-centered"><u>59.0</u></td>
+                <td class="has-text-centered"><strong>41.4</strong></td>
+                <td class="has-text-centered"><strong>70.9</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <br>
+    </div>
+  </section>
+
+  <!-- Potsdam -->
+
+  <!-- Potsdam 数据集雷达图容器 -->
+  <div id="potsdamRadar" style="width: 100%; height: 500px;"></div>
+
+  <!-- 引入 ECharts 库（使用 CDN 方式） -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+
+  <script>
+    var chartDom = document.getElementById('potsdamRadar');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+      title: {
+        text: 'Potsdam Dataset Segmentation Performance',
+        left: 'center'
+      },
+      tooltip: {},
+      legend: {
+        data: ['DANet', 'ABCNet', 'Segmenter', 'BANet', 'SwinUperNet', 'DC-Swin', 'UNetFormer', 'AerialFormer',
+          'SFA-Net', 'Ours'
+        ],
+        bottom: 10,
+        left: 'center'
+      },
+      radar: {
+        indicator: [{
+            name: 'Impervious Surface',
+            max: 100
+          },
+          {
+            name: 'Building',
+            max: 100
+          },
+          {
+            name: 'Low Vegetation',
+            max: 100
+          },
+          {
+            name: 'Tree',
+            max: 100
+          },
+          {
+            name: 'Car',
+            max: 100
+          },
+          {
+            name: 'mF1',
+            max: 100
+          }
+        ]
+      },
+      series: [{
+        name: 'Segmentation Performance',
+        type: 'radar',
+        data: [{
+            value: [91.0, 95.6, 86.1, 87.6, 84.3, 88.9],
+            name: 'DANet'
+          },
+          {
+            value: [93.5, 96.9, 87.9, 89.1, 95.8, 92.7],
+            name: 'ABCNet'
+          },
+          {
+            value: [91.5, 95.3, 85.4, 85.0, 88.5, 89.2],
+            name: 'Segmenter'
+          },
+          {
+            value: [93.3, 96.7, 87.4, 89.1, 96.0, 92.5],
+            name: 'BANet'
+          },
+          {
+            value: [93.2, 96.4, 87.6, 88.6, 95.4, 92.2],
+            name: 'SwinUperNet'
+          },
+          {
+            value: [94.2, 97.6, 88.6, 96.3, 96.3, 93.3],
+            name: 'DC-Swin'
+          },
+          {
+            value: [93.6, 97.2, 87.7, 90.6, 96.5, 93.5],
+            name: 'UNetFormer'
+          },
+          {
+            value: [95.5, 98.1, 89.8, 90.8, 97.5, 94.1],
+            name: 'AerialFormer'
+          },
+          {
+            value: [95.0, 97.5, 88.3, 90.2, 97.1, 93.5],
+            name: 'SFA-Net'
+          },
+          {
+            value: [96.1, 97.9, 90.6, 91.2, 97.5, 94.7],
+            name: 'Ours',
+            lineStyle: {
+              color: '#000000'
+            },
+            itemStyle: {
+              color: '#000000'
+            }
+          }
+        ]
+      }]
+    };
+
+    myChart.setOption(option);
+  </script>
+
+
+  <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h3 class="title is-4 has-text-centered">
+          Comparison of semantic segmentation performance on the Potsdam dataset.
+        </h3>
+        <br><br>
+        <div class="columns is-centered">
+          <div class="column is-12">
+            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <th class="has-text-centered">Method</th>
+                  <th class="has-text-centered">Impervious Surface</th>
+                  <th class="has-text-centered">Building</th>
+                  <th class="has-text-centered">Low Vegetation</th>
+                  <th class="has-text-centered">Tree</th>
+                  <th class="has-text-centered">Car</th>
+                  <th class="has-text-centered">mF1 ↑</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="has-text-centered">DANet</td>
+                  <td class="has-text-centered">91.0</td>
+                  <td class="has-text-centered">95.6</td>
+                  <td class="has-text-centered">86.1</td>
+                  <td class="has-text-centered">87.6</td>
+                  <td class="has-text-centered">84.3</td>
+                  <td class="has-text-centered">88.9</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">ABCNet</td>
+                  <td class="has-text-centered">93.5</td>
+                  <td class="has-text-centered">96.9</td>
+                  <td class="has-text-centered">87.9</td>
+                  <td class="has-text-centered">89.1</td>
+                  <td class="has-text-centered">95.8</td>
+                  <td class="has-text-centered">92.7</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">Segmenter</td>
+                  <td class="has-text-centered">91.5</td>
+                  <td class="has-text-centered">95.3</td>
+                  <td class="has-text-centered">85.4</td>
+                  <td class="has-text-centered">85.0</td>
+                  <td class="has-text-centered">88.5</td>
+                  <td class="has-text-centered">89.2</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">BANet</td>
+                  <td class="has-text-centered">93.3</td>
+                  <td class="has-text-centered">96.7</td>
+                  <td class="has-text-centered">87.4</td>
+                  <td class="has-text-centered">89.1</td>
+                  <td class="has-text-centered">96.0</td>
+                  <td class="has-text-centered">92.5</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">SwinUperNet</td>
+                  <td class="has-text-centered">93.2</td>
+                  <td class="has-text-centered">96.4</td>
+                  <td class="has-text-centered">87.6</td>
+                  <td class="has-text-centered">88.6</td>
+                  <td class="has-text-centered">95.4</td>
+                  <td class="has-text-centered">92.2</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">DC-Swin</td>
+                  <td class="has-text-centered">94.2</td>
+                  <td class="has-text-centered">97.6</td>
+                  <td class="has-text-centered">88.6</td>
+                  <td class="has-text-centered"><strong>96.3</strong></td>
+                  <td class="has-text-centered">96.3</td>
+                  <td class="has-text-centered">93.3</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">UNetFormer</td>
+                  <td class="has-text-centered">93.6</td>
+                  <td class="has-text-centered">97.2</td>
+                  <td class="has-text-centered">87.7</td>
+                  <td class="has-text-centered">90.6</td>
+                  <td class="has-text-centered">96.5</td>
+                  <td class="has-text-centered">93.5</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">AerialFormer</td>
+                  <td class="has-text-centered"><u>95.5</u></td>
+                  <td class="has-text-centered"><strong>98.1</strong></td>
+                  <td class="has-text-centered"><u>89.8</u></td>
+                  <td class="has-text-centered">90.8</td>
+                  <td class="has-text-centered">97.5</td>
+                  <td class="has-text-centered"><u>94.1</u></td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">SFA-Net</td>
+                  <td class="has-text-centered">95.0</td>
+                  <td class="has-text-centered">97.5</td>
+                  <td class="has-text-centered">88.3</td>
+                  <td class="has-text-centered">90.2</td>
+                  <td class="has-text-centered"><u>97.1</u></td>
+                  <td class="has-text-centered">93.5</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">Ours</td>
+                  <td class="has-text-centered"><strong>96.1</strong></td>
+                  <td class="has-text-centered"><u>97.9</u></td>
+                  <td class="has-text-centered"><strong>90.6</strong></td>
+                  <td class="has-text-centered"><u>91.2</u></td>
+                  <td class="has-text-centered"><strong>97.5</strong></td>
+                  <td class="has-text-centered"><strong>94.7</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+  </section>
+
+  <!-- vaihingen -->
+
+  <!-- Vaihingen 数据集雷达图容器 -->
+  <div id="vaihingenRadar" style="width: 100%; height: 500px;"></div>
+
+  <script>
+    var chartDom = document.getElementById('vaihingenRadar');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+      title: {
+        text: 'Vaihingen Dataset Segmentation Performance',
+        left: 'center'
+      },
+      tooltip: {},
+      legend: {
+        data: ['DANet', 'ABCNet', 'BANet', 'Segmenter', 'SwinUperNet', 'DC-Swin', 'UNetFormer', 'SFA-Net', 'Ours'],
+        bottom: 10,
+        left: 'center'
+      },
+      radar: {
+        indicator: [{
+            name: 'Impervious Surface',
+            max: 100
+          },
+          {
+            name: 'Building',
+            max: 100
+          },
+          {
+            name: 'Low Vegetation',
+            max: 100
+          },
+          {
+            name: 'Tree',
+            max: 100
+          },
+          {
+            name: 'Car',
+            max: 100
+          },
+          {
+            name: 'mF1',
+            max: 100
+          }
+        ]
+      },
+      series: [{
+        name: 'Segmentation Performance',
+        type: 'radar',
+        data: [{
+            value: [90.0, 93.9, 82.2, 87.3, 44.5, 79.6],
+            name: 'DANet'
+          },
+          {
+            value: [92.7, 95.2, 84.5, 89.7, 85.3, 89.5],
+            name: 'ABCNet'
+          },
+          {
+            value: [92.2, 95.2, 83.8, 89.9, 86.8, 89.6],
+            name: 'BANet'
+          },
+          {
+            value: [89.8, 93.0, 81.2, 88.9, 67.6, 84.1],
+            name: 'Segmenter'
+          },
+          {
+            value: [92.8, 95.6, 85.1, 90.6, 85.1, 89.8],
+            name: 'SwinUperNet'
+          },
+          {
+            value: [93.6, 96.2, 85.8, 90.4, 87.6, 90.7],
+            name: 'DC-Swin'
+          },
+          {
+            value: [92.7, 95.3, 84.9, 90.6, 88.5, 90.4],
+            name: 'UNetFormer'
+          },
+          {
+            value: [93.5, 96.3, 85.4, 90.2, 90.7, 91.2],
+            name: 'SFA-Net'
+          },
+          {
+            value: [97.1, 96.0, 85.4, 90.5, 90.5, 91.9],
+            name: 'Ours',
+            lineStyle: {
+              color: '#000000'
+            },
+            itemStyle: {
+              color: '#000000'
+            }
+          }
+        ]
+      }]
+    };
+
+    myChart.setOption(option);
+  </script>
+
+
+  <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h3 class="title is-4 has-text-centered">
+          Comparison of semantic segmentation performance on the Vaihingen dataset.
+        </h3>
+        <br><br>
+        <div class="columns is-centered">
+          <div class="column is-12">
+            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <th class="has-text-centered">Method</th>
+                  <th class="has-text-centered">Impervious Surface</th>
+                  <th class="has-text-centered">Building</th>
+                  <th class="has-text-centered">Low Vegetation</th>
+                  <th class="has-text-centered">Tree</th>
+                  <th class="has-text-centered">Car</th>
+                  <th class="has-text-centered">mF1 ↑</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="has-text-centered">DANet</td>
+                  <td class="has-text-centered">90.0</td>
+                  <td class="has-text-centered">93.9</td>
+                  <td class="has-text-centered">82.2</td>
+                  <td class="has-text-centered">87.3</td>
+                  <td class="has-text-centered">44.5</td>
+                  <td class="has-text-centered">79.6</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">ABCNet</td>
+                  <td class="has-text-centered">92.7</td>
+                  <td class="has-text-centered">95.2</td>
+                  <td class="has-text-centered">84.5</td>
+                  <td class="has-text-centered">89.7</td>
+                  <td class="has-text-centered">85.3</td>
+                  <td class="has-text-centered">89.5</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">BANet</td>
+                  <td class="has-text-centered">92.2</td>
+                  <td class="has-text-centered">95.2</td>
+                  <td class="has-text-centered">83.8</td>
+                  <td class="has-text-centered">89.9</td>
+                  <td class="has-text-centered">86.8</td>
+                  <td class="has-text-centered">89.6</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">Segmenter</td>
+                  <td class="has-text-centered">89.8</td>
+                  <td class="has-text-centered">93.0</td>
+                  <td class="has-text-centered">81.2</td>
+                  <td class="has-text-centered">88.9</td>
+                  <td class="has-text-centered">67.6</td>
+                  <td class="has-text-centered">84.1</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">SwinUperNet</td>
+                  <td class="has-text-centered">92.8</td>
+                  <td class="has-text-centered">95.6</td>
+                  <td class="has-text-centered">85.1</td>
+                  <td class="has-text-centered">90.6</td>
+                  <td class="has-text-centered">85.1</td>
+                  <td class="has-text-centered">89.8</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">DC-Swin</td>
+                  <td class="has-text-centered"><u>93.6</u></td>
+                  <td class="has-text-centered"><u>96.2</u></td>
+                  <td class="has-text-centered">85.8</td>
+                  <td class="has-text-centered">90.4</td>
+                  <td class="has-text-centered">87.6</td>
+                  <td class="has-text-centered">90.7</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">UNetFormer</td>
+                  <td class="has-text-centered">92.7</td>
+                  <td class="has-text-centered">95.3</td>
+                  <td class="has-text-centered">84.9</td>
+                  <td class="has-text-centered"><strong>90.6</strong></td>
+                  <td class="has-text-centered">88.5</td>
+                  <td class="has-text-centered">90.4</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">SFA-Net</td>
+                  <td class="has-text-centered">93.5</td>
+                  <td class="has-text-centered"><strong>96.3</strong></td>
+                  <td class="has-text-centered"><u>85.4</u></td>
+                  <td class="has-text-centered">90.2</td>
+                  <td class="has-text-centered"><strong>90.7</strong></td>
+                  <td class="has-text-centered"><u>91.2</u></td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">Ours</td>
+                  <td class="has-text-centered"><strong>97.1</strong></td>
+                  <td class="has-text-centered">96.0</td>
+                  <td class="has-text-centered"><strong>85.4</strong></td>
+                  <td class="has-text-centered"><u>90.5</u></td>
+                  <td class="has-text-centered"><u>90.5</u></td>
+                  <td class="has-text-centered"><strong>91.9</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- cloud -->
+
+  <!-- Cloud 数据集雷达图容器 -->
+  <div id="cloudRadar" style="width: 100%; height: 500px;"></div>
+
+  <script>
+    var chartDom = document.getElementById('cloudRadar');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+      title: {
+        text: 'Cloud Dataset Segmentation Performance',
+        left: 'center'
+      },
+      tooltip: {},
+      legend: {
+        data: ['MCDNet', 'SCNN', 'CDNetv1', 'KappaMask', 'UNetMobv2', 'CDNetv2', 'HRCloudNet', 'KTDA', 'SFA-Net',
+          'Ours'
+        ],
+        bottom: 10,
+        left: 'center'
+      },
+      radar: {
+        indicator: [{
+            name: 'mIoU',
+            max: 100
+          },
+          {
+            name: 'OA',
+            max: 100
+          },
+          {
+            name: 'mF1',
+            max: 100
+          }
+        ]
+      },
+      series: [{
+        name: 'Segmentation Performance',
+        type: 'radar',
+        data: [{
+            value: [33.85, 69.75, 42.76],
+            name: 'MCDNet'
+          },
+          {
+            value: [32.38, 71.22, 52.41],
+            name: 'SCNN'
+          },
+          {
+            value: [34.58, 68.16, 45.80],
+            name: 'CDNetv1'
+          },
+          {
+            value: [42.12, 76.63, 68.47],
+            name: 'KappaMask'
+          },
+          {
+            value: [47.76, 82.00, 56.91],
+            name: 'UNetMobv2'
+          },
+          {
+            value: [43.63, 78.56, 70.33],
+            name: 'CDNetv2'
+          },
+          {
+            value: [43.51, 77.04, 71.36],
+            name: 'HRCloudNet'
+          },
+          {
+            value: [51.49, 83.55, 60.08],
+            name: 'KTDA'
+          },
+          {
+            value: [74.88, 91.81, 84.64],
+            name: 'SFA-Net'
+          },
+          {
+            value: [82.16, 94.90, 89.65],
+            name: 'Ours',
+            lineStyle: {
+              color: '#000000'
+            },
+            itemStyle: {
+              color: '#000000'
+            }
+          }
+        ]
+      }]
+    };
+
+    myChart.setOption(option);
+  </script>
+
+
+  <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h3 class="title is-4 has-text-centered">
+          Comparison of semantic segmentation performance on the Cloud dataset.
+        </h3>
+        <br><br>
+        <div class="columns is-centered">
+          <div class="column is-12">
+            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <th class="has-text-centered">Method</th>
+                  <th class="has-text-centered">mIoU ↑</th>
+                  <th class="has-text-centered">OA ↑</th>
+                  <th class="has-text-centered">mF1 ↑</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="has-text-centered">MCDNet</td>
+                  <td class="has-text-centered">33.85</td>
+                  <td class="has-text-centered">69.75</td>
+                  <td class="has-text-centered">42.76</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">SCNN</td>
+                  <td class="has-text-centered">32.38</td>
+                  <td class="has-text-centered">71.22</td>
+                  <td class="has-text-centered">52.41</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">CDNetv1</td>
+                  <td class="has-text-centered">34.58</td>
+                  <td class="has-text-centered">68.16</td>
+                  <td class="has-text-centered">45.80</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">KappaMask</td>
+                  <td class="has-text-centered">42.12</td>
+                  <td class="has-text-centered">76.63</td>
+                  <td class="has-text-centered">68.47</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">UNetMobv2</td>
+                  <td class="has-text-centered">47.76</td>
+                  <td class="has-text-centered">82.00</td>
+                  <td class="has-text-centered">56.91</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">CDNetv2</td>
+                  <td class="has-text-centered">43.63</td>
+                  <td class="has-text-centered">78.56</td>
+                  <td class="has-text-centered">70.33</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">HRCloudNet</td>
+                  <td class="has-text-centered">43.51</td>
+                  <td class="has-text-centered">77.04</td>
+                  <td class="has-text-centered">71.36</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">KTDA</td>
+                  <td class="has-text-centered">51.49</td>
+                  <td class="has-text-centered">83.55</td>
+                  <td class="has-text-centered">60.08</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">SFA-Net</td>
+                  <td class="has-text-centered"><u>74.88</u></td>
+                  <td class="has-text-centered"><u>91.81</u></td>
+                  <td class="has-text-centered"><u>84.64</u></td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">Ours</td>
+                  <td class="has-text-centered"><strong>82.16</strong></td>
+                  <td class="has-text-centered"><strong>94.90</strong></td>
+                  <td class="has-text-centered"><strong>89.65</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+  </section>
+
+  <!-- grass -->
+
+  <!-- Grass 数据集雷达图容器 -->
+  <div id="grassRadar" style="width: 100%; height: 500px;"></div>
+
+  <script>
+    var chartDom = document.getElementById('grassRadar');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+      title: {
+        text: 'Grass Dataset Segmentation Performance',
+        left: 'center'
+      },
+      tooltip: {},
+      legend: {
+        data: ['FCN', 'PSPNet', 'DeepLabV3+', 'UNet', 'SegFormer', 'Mask2Former', 'DINOv2', 'KTDA', 'SFA-Net',
+          'Ours'
+        ],
+        bottom: 10,
+        left: 'center'
+      },
+      radar: {
+        indicator: [{
+            name: 'mIoU',
+            max: 55
+          },
+          {
+            name: 'OA',
+            max: 80
+          },
+          {
+            name: 'mF1',
+            max: 70
+          }
+        ]
+      },
+      series: [{
+        name: 'Segmentation Performance',
+        type: 'radar',
+        data: [{
+            value: [47.47, 67.85, 61.99],
+            name: 'FCN'
+          },
+          {
+            value: [47.95, 69.12, 62.55],
+            name: 'PSPNet'
+          },
+          {
+            value: [47.95, 68.97, 62.50],
+            name: 'DeepLabV3+'
+          },
+          {
+            value: [48.17, 69.77, 62.34],
+            name: 'UNet'
+          },
+          {
+            value: [48.29, 68.93, 62.82],
+            name: 'SegFormer'
+          },
+          {
+            value: [44.93, 65.90, 58.91],
+            name: 'Mask2Former'
+          },
+          {
+            value: [47.57, 71.54, 61.70],
+            name: 'DINOv2'
+          },
+          {
+            value: [50.86, 74.26, 65.01],
+            name: 'KTDA'
+          },
+          {
+            value: [51.21, 71.41, 65.76],
+            name: 'SFA-Net'
+          },
+          {
+            value: [51.96, 72.26, 66.27],
+            name: 'Ours',
+            lineStyle: {
+              color: '#000000'
+            },
+            itemStyle: {
+              color: '#000000'
+            }
+          }
+        ]
+      }]
+    };
+
+    myChart.setOption(option);
+  </script>
+
+
+  <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h3 class="title is-4 has-text-centered">
+          Comparison of semantic segmentation performance on the Grass dataset.
+        </h3>
+        <br><br>
+        <div class="columns is-centered">
+          <div class="column is-12">
+            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <th class="has-text-centered">Method</th>
+                  <th class="has-text-centered">mIoU ↑</th>
+                  <th class="has-text-centered">OA ↑</th>
+                  <th class="has-text-centered">mF1 ↑</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="has-text-centered">FCN</td>
+                  <td class="has-text-centered">47.47</td>
+                  <td class="has-text-centered">67.85</td>
+                  <td class="has-text-centered">61.99</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">PSPNet</td>
+                  <td class="has-text-centered">47.95</td>
+                  <td class="has-text-centered">69.12</td>
+                  <td class="has-text-centered">62.55</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">DeepLabV3+</td>
+                  <td class="has-text-centered">47.95</td>
+                  <td class="has-text-centered">68.97</td>
+                  <td class="has-text-centered">62.50</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">UNet</td>
+                  <td class="has-text-centered">48.17</td>
+                  <td class="has-text-centered">69.77</td>
+                  <td class="has-text-centered">62.34</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">SegFormer</td>
+                  <td class="has-text-centered">48.29</td>
+                  <td class="has-text-centered">68.93</td>
+                  <td class="has-text-centered">62.82</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">Mask2Former</td>
+                  <td class="has-text-centered">44.93</td>
+                  <td class="has-text-centered">65.90</td>
+                  <td class="has-text-centered">58.91</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">DINOv2</td>
+                  <td class="has-text-centered">47.57</td>
+                  <td class="has-text-centered">71.54</td>
+                  <td class="has-text-centered">61.70</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">KTDA</td>
+                  <td class="has-text-centered">50.86</td>
+                  <td class="has-text-centered"><strong>74.26</strong></td>
+                  <td class="has-text-centered">65.01</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">SFA-Net</td>
+                  <td class="has-text-centered"><u>51.21</u></td>
+                  <td class="has-text-centered">71.41</td>
+                  <td class="has-text-centered"><u>65.76</u></td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">Ours</td>
+                  <td class="has-text-centered"><strong>51.96</strong></td>
+                  <td class="has-text-centered"><u>72.26</u></td>
+                  <td class="has-text-centered"><strong>66.27</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h3 class="title is-4 is-centered has-text-centered">Quantitative Comparison (mIoU, %, ↑) with the Existing
+          Methods.</h3>
+        <div id="radar" style="min-height: 500px;"></div>
+        <br>
+        <br>
+        <div class="columns is-centered has-text-centered">
+          <table id="example" class="display" style="width:100%">
+            <thead>
+              <tr>
+                <th rowspan="2" style="vertical-align: middle;">Method</th>
+                <th colspan="3">Binary-Class Cloud Segmentation</th>
+                <th colspan="3">Multi-Class Cloud Segmentation</th>
+              </tr>
+              <tr>
+                <th>HRC</th>
+                <th>GF1</th>
+                <th>GF2</th>
+                <th>L1C</th>
+                <th>L2A</th>
+                <th>L8B</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>SCNN</td>
+                <td>57.22</td>
+                <td>81.68</td>
+                <td>76.99</td>
+                <td>22.75</td>
+                <td>28.76</td>
+                <td>32.38</td>
+              </tr>
+              <tr>
+                <td>CDNetv1</td>
+                <td>77.79</td>
+                <td>81.82</td>
+                <td>78.20</td>
+                <td>60.35</td>
+                <td>62.39</td>
+                <td>34.58</td>
+              </tr>
+              <tr>
+                <td>CDNetv2</td>
+                <td>76.75</td>
+                <td>84.93</td>
+                <td>78.84</td>
+                <td>65.60</td>
+                <td>66.05</td>
+                <td>43.63</td>
+              </tr>
+              <tr>
+                <td>MCDNet</td>
+                <td>53.50</td>
+                <td>85.16</td>
+                <td>78.36</td>
+                <td>44.80</td>
+                <td>46.52</td>
+                <td>33.85</td>
+              </tr>
+              <tr>
+                <td>UNetMobv2</td>
+                <td>79.91</td>
+                <td>91.71</td>
+                <td>80.44</td>
+                <td>71.65</td>
+                <td>70.36</td>
+                <td>47.76</td>
+              </tr>
+              <tr>
+                <td>DBNet</td>
+                <td>77.78</td>
+                <td>91.36</td>
+                <td>78.68</td>
+                <td>65.52</td>
+                <td>65.65</td>
+                <td>51.41</td>
+              </tr>
+              <tr>
+                <td>HRCloudNet</td>
+                <td>83.44</td>
+                <td>91.86</td>
+                <td>75.57</td>
+                <td>68.26</td>
+                <td>68.35</td>
+                <td>43.51</td>
+              </tr>
+              <tr>
+                <td>KappaMask</td>
+                <td>67.48</td>
+                <td>92.42</td>
+                <td>72.00</td>
+                <td>41.27</td>
+                <td>45.28</td>
+                <td>42.12</td>
+              </tr>
+              <tr style="background-color: gainsboro;">
+                <td>Cloud-Adapter</td>
+                <td style="color: red;">89.05</td>
+                <td style="color: red;">92.55</td>
+                <td style="color: red;">83.02</td>
+                <td style="color: red;">74.18</td>
+                <td style="color: red;">73.38</td>
+                <td style="color: red;">57.53</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+  </section> -->
+
+  <!-- <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h3 class="title is-4">Visualization on the Sen2_MTC_New dataset</h3>
+            <div id="results-carousel" class="carousel results-carousel">
+              <div class="item ">
+                <img src="image/README/new/T12TUR_R027_55.jpg" alt="MY ALT TEXT" />
+              </div>
+              <div class="item">
+                <img src="image/README/new/T15UVU_R012_12.jpg" alt="MY ALT TEXT" />
+              </div>
+              <div class="item">
+                <img src="image/README/new/T15UVU_R012_13.jpg" alt="MY ALT TEXT" />
+              </div>
+              <div class="item">
+                <img src="image/README/new/T15UVU_R012_17.jpg" alt="MY ALT TEXT" />
+              </div>
+              <div class="item">
+                <img src="image/README/new/T41VMJ_R006_64.jpg" alt="MY ALT TEXT" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section> -->
+  <!-- End Results -->
+
+
+  <!-- Application -->
+  <!-- <section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+	      <h2 class="title is-3">Applications</h2>
+	      <div id="results-carousel" class="carousel results-carousel">
+		<div class="item item-video1">
+		  <video poster="" id="video1" autoplay controls muted loop height="100%"> -->
+  <!-- Your video file here -->
+  <!-- <source src="static/videos/intro_noshadow.mp4"
+		    type="video/mp4">
+		  </video>
+		</div>
+		<div class="item item-video2">
+		  <video poster="" id="video2" autoplay controls muted loop height="100%"> -->
+  <!-- Your video file here -->
+  <!-- <source src="static/videos/v3_body.mp4"
+		    type="video/mp4">
+		  </video>
+		</div>
+		<div class="item item-video2">
+		  <video poster="" id="video2" autoplay controls muted loop height="100%"> -->
+  <!-- Your video file here -->
+  <!-- <source src="static/videos/single-cropped.mp4"
+		    type="video/mp4">
+		  </video>
+		</div>
+		<div class="item item-video3">
+		  <video poster="" id="video3" autoplay controls muted loop height="100%">\ -->
+  <!-- Your video file here -->
+  <!-- <source src="static/videos/qin.mp4"
+		    type="video/mp4">
+		  </video>
+	</div>
+      </div>
+    </div>
+  </div>
+</section> -->
+  <!-- End Application -->
+
+  <!-- Demo video-->
+  <!-- <section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+	  <h2 class="title is-3">Videos</h2>
+	
+           <div class="column">
+             <div class="content">
+               <div class="publication-video"> -->
+  <!-- Youtube embed code here -->
+  <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/WKRkm3Tfn3s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+             </div>
+            </div>
+	
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+  <!-- End Demo video -->
+
+
+  <!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title is-centered has-text-centered">BibTeX</h2>
+      <pre><code>@misc{zou2025dynamicdictionarylearningremote,
+        title={Dynamic Dictionary Learning for Remote Sensing Image Segmentation}, 
+        author={Xuechao Zou and Yue Li and Shun Zhang and Kai Li and Shiying Wang and Pin Tao and Junliang Xing and Congyan Lang},
+        year={2025},
+        eprint={2503.06683},
+        archivePrefix={arXiv},
+        primaryClass={cs.CV},
+        url={https://arxiv.org/abs/2503.06683},
+      }
+      </code></pre>
+    </div>
+  </section>
+  <!--End BibTex citation -->
+
+  <!--Acknowledgements-->
+  <!-- <section class="section" id="Acknowledgements">
+    <div class="container is-max-desktop content">
+      <h2 class="title is-centered has-text-centered">Acknowledgements</h2>
+      <p>
+        This work was supported in part by the National Natural Science Foundation of China under Grant No. 62072027.
+      </p>
+    </div>
+  </section> -->
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+
+            <p>
+              This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"
+                target="_blank">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+
+              This page was built using the <a href="https://nerfies.github.io/" target="_blank">Nerfies website</a>.
+              You are free to borrow the of this website, we just ask that you link back to this page.
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Statcounter tracking code -->
+
+  <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+</body>
+
+</html>
