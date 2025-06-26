@@ -227,3 +227,17 @@ python test_loveda.py -c config/loveda/d2ls.py -o fig_results/loveda/d2ls -t "d4
 ```
 python test_uavid.py -i "data/uavid/uavid_test" -c config/uavid/d2ls.py -o fig_results/uavid/d2ls -t "lr" -ph 1152 -pw 1024 -b 2 -d "uavid"
 ```
+
+## Citation
+
+```bibtex
+@misc{zou2025dynamicdictionarylearningremote,
+        title={Dynamic Dictionary Learning for Remote Sensing Image Segmentation}, 
+        author={Xuechao Zou and Yue Li and Shun Zhang and Kai Li and Shiying Wang and Pin Tao and Junliang Xing and Congyan Lang},
+        year={2025},
+        eprint={2503.06683},
+        archivePrefix={arXiv},
+        primaryClass={cs.CV},
+        url={https://arxiv.org/abs/2503.06683},
+      }
+```
