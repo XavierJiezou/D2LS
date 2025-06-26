@@ -9,6 +9,8 @@ Dynamic Dictionary Learning for Remote Sensing Image Segmentation
 [![arXiv Paper](https://img.shields.io/badge/arXiv-2503.06683-B31B1B)](https://arxiv.org/abs/2503.06683)
 [![Project Page](https://img.shields.io/badge/Project%20Page-D2LS-blue)](https://xavierjiezou.github.io/D2LS/)
 [![Ranked #2 Semantic Segmentation on LoveDA](https://img.shields.io/badge/Ranked%20%232-Semantic%20Segmentation%20on%20LoveDA-informational)](https://paperswithcode.com/sota/semantic-segmentation-on-loveda)
+[![Ranked #3 Semantic Segmentation on UAVid](https://img.shields.io/badge/Ranked%20%233-Semantic%20Segmentation%20on%20UAVid-informational)](https://paperswithcode.com/sota/semantic-segmentation-on-uavid)
+
 
 <!--[![HugginngFace Models](https://img.shields.io/badge/🤗HugginngFace-Models-orange)](https://huggingface.co/XavierJiezou/ktda-models)-->
 <!--[![HugginngFace Datasets](https://img.shields.io/badge/🤗HugginngFace-Datasets-orange)](https://huggingface.co/datasets/XavierJiezou/ktda-datasets)-->
