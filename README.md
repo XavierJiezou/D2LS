@@ -10,7 +10,7 @@ Dynamic Dictionary Learning for Remote Sensing Image Segmentation
 
 <!--Love the project? Please consider [donating](https://paypal.me/xavierjiezou?country.x=C2&locale.x=zh_XC) to help it improve!-->
 
-![framework](/images/framework.png)
+![framework](/images/framework.svg)
 
 
 </div>
