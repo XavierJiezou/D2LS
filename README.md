@@ -13,6 +13,8 @@ Dynamic Dictionary Learning for Remote Sensing Image Segmentation
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-uavid)](https://paperswithcode.com/sota/semantic-segmentation-on-uavid?p=dynamic-dictionary-learning-for-remote)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-loveda)](https://paperswithcode.com/sota/semantic-segmentation-on-loveda?p=dynamic-dictionary-learning-for-remote)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-fine-grained-grass)](https://paperswithcode.com/sota/semantic-segmentation-on-fine-grained-grass?p=dynamic-dictionary-learning-for-remote)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-fine-grained-cloud)](https://paperswithcode.com/sota/semantic-segmentation-on-fine-grained-cloud?p=dynamic-dictionary-learning-for-remote)
+
 
 <!--[![HugginngFace Models](https://img.shields.io/badge/🤗HugginngFace-Models-orange)](https://huggingface.co/XavierJiezou/ktda-models)-->
 <!--[![HugginngFace Datasets](https://img.shields.io/badge/🤗HugginngFace-Datasets-orange)](https://huggingface.co/datasets/XavierJiezou/ktda-datasets)-->
