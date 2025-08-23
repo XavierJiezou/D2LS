@@ -48,7 +48,7 @@ use_aux_loss = True
 train_dataset = UAVIDDataset(data_root='data/uavid/train_val', img_dir='images', mask_dir='masks',
                              mode='train', mosaic_ratio=0.25, transform=train_aug, img_size=(1024, 1024))
 
-val_dataset = UAVIDDataset(data_root='data/uavid/test', img_dir='images', mask_dir='masks', mode='test',
+val_dataset = UAVIDDataset(data_root='data/uavid/val', img_dir='images', mask_dir='masks', mode='test',
                            mosaic_ratio=0.0, transform=test_aug, img_size=(1024, 1024))
 
 
