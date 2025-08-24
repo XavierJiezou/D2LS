@@ -1,6 +1,6 @@
 <div align="center">
-
-<img src="https://github.com/user-attachments/assets/ab1bb750-ca90-4ea7-8806-f9e25a55acb7" alt="poster" width="1920" height="919">
+  
+<img src="https://github.com/user-attachments/assets/700aff4f-3c6b-4934-8d2a-6a4cdcdcc9b3" alt="poster" width="1911" height="907">
 
 # [ICCV 2025] D2LS
 
@@ -248,4 +248,5 @@ python test_uavid.py -i "data/uavid/uavid_test" -c config/uavid/d2ls.py -o fig_r
   pages     = {1--10},
 }
 ```
+
 
