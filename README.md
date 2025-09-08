@@ -1,6 +1,4 @@
 <div align="center">
-  
-<img src="https://github.com/user-attachments/assets/341d61f5-9bb2-4859-9648-70fdde9df539" alt="poster" width="1910" height="909">
 
 # [ICCV 2025] D2LS
 
@@ -237,6 +235,10 @@ python test_loveda.py -c config/loveda/d2ls.py -o fig_results/loveda/d2ls -t "d4
 python test_uavid.py -i "data/uavid/uavid_test" -c config/uavid/d2ls.py -o fig_results/uavid/d2ls -t "lr" -ph 1152 -pw 1024 -b 2 -d "uavid"
 ```
 
+## Poster
+
+![poster][https://github.com/user-attachments/assets/341d61f5-9bb2-4859-9648-70fdde9df539>
+
 ## Citation
 
 ```bibtex
@@ -248,6 +250,3 @@ python test_uavid.py -i "data/uavid/uavid_test" -c config/uavid/d2ls.py -o fig_r
   pages     = {1--10},
 }
 ```
-
-
-
