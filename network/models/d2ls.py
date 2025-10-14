@@ -611,7 +611,7 @@ class DynamicDictionaryLearning(nn.Module):
         only_static=False,
         has_aggregator=True,
         has_interactor=True,
-        has_contrastive_loss=False,
+        has_contrastive_loss=True,
         froze_backbone=False,
     ):
         super(DynamicDictionaryLearning, self).__init__()
