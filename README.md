@@ -26,9 +26,9 @@ Dynamic Dictionary Learning for Remote Sensing Image Segmentation
 ## Install
 
 ```
-conda create -n d2ls python=3.8
+conda create -n d2ls python=3.8.20
 conda activate d2ls
-conda install pytorch==1.10.0 torchvision==0.11.0 torchaudio==0.10.0 cudatoolkit=11.3 -c pytorch -c conda-forge
+pip install torch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0
 pip install -r requirements.txt
 ```
 
@@ -250,3 +250,4 @@ python test_uavid.py -i "data/uavid/uavid_test" -c config/uavid/d2ls.py -o fig_r
   pages     = {1--10},
 }
 ```
+
