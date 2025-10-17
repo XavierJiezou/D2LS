@@ -105,7 +105,8 @@ D2LS
 
 Download Datasets
 - [ISPRS Vaihingen, Potsdam](https://www.isprs.org/education/benchmarks/UrbanSemLab/default.aspx)
-- [UAVid](https://uavid.nl/)
+<!--- [UAVid](https://uavid.nl/) -->
+- [UAVid](https://opendatalab.com/OpenDataLab/UAVid)
 - [LoveDA](https://codalab.lisn.upsaclay.fr/competitions/421)
 
 Configure the folder as shown in 'Folder Structure' above.
@@ -250,4 +251,5 @@ python test_uavid.py -i "data/uavid/uavid_test" -c config/uavid/d2ls.py -o fig_r
   pages     = {1--10},
 }
 ```
+
 
