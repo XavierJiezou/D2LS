@@ -1,8 +1,6 @@
 <div align="center">
 
-# [ICCV 2025] D2LS
-
-Dynamic Dictionary Learning for Remote Sensing Image Segmentation
+# [ICCV 2025] Dynamic Dictionary Learning for Remote Sensing Image Segmentation
 
 [![arXiv Paper](https://img.shields.io/badge/arXiv-2503.06683-B31B1B)](https://arxiv.org/abs/2503.06683)
 [![Project Page](https://img.shields.io/badge/Project%20Page-D2LS-blue)](https://xavierjiezou.github.io/D2LS/)
@@ -250,6 +248,7 @@ python test_uavid.py -i "data/uavid/uavid_test" -c config/uavid/d2ls.py -o fig_r
   pages     = {1--10},
 }
 ```
+
 
 
 
