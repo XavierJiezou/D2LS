@@ -4,12 +4,12 @@
 
 [![arXiv Paper](https://img.shields.io/badge/arXiv-2503.06683-B31B1B)](https://arxiv.org/abs/2503.06683)
 [![Project Page](https://img.shields.io/badge/Project%20Page-D2LS-blue)](https://xavierjiezou.github.io/D2LS/)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-isprs-potsdam)](https://paperswithcode.com/sota/semantic-segmentation-on-isprs-potsdam?p=dynamic-dictionary-learning-for-remote)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-isprs-vaihingen)](https://paperswithcode.com/sota/semantic-segmentation-on-isprs-vaihingen?p=dynamic-dictionary-learning-for-remote)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-uavid)](https://paperswithcode.com/sota/semantic-segmentation-on-uavid?p=dynamic-dictionary-learning-for-remote)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-loveda)](https://paperswithcode.com/sota/semantic-segmentation-on-loveda?p=dynamic-dictionary-learning-for-remote)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-fine-grained-grass)](https://paperswithcode.com/sota/semantic-segmentation-on-fine-grained-grass?p=dynamic-dictionary-learning-for-remote)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-fine-grained-cloud)](https://paperswithcode.com/sota/semantic-segmentation-on-fine-grained-cloud?p=dynamic-dictionary-learning-for-remote)
+<!--[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-isprs-potsdam)](https://paperswithcode.com/sota/semantic-segmentation-on-isprs-potsdam?p=dynamic-dictionary-learning-for-remote)-->
+<!--[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-isprs-vaihingen)](https://paperswithcode.com/sota/semantic-segmentation-on-isprs-vaihingen?p=dynamic-dictionary-learning-for-remote)-->
+<!--[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-uavid)](https://paperswithcode.com/sota/semantic-segmentation-on-uavid?p=dynamic-dictionary-learning-for-remote)-->
+<!--[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-loveda)](https://paperswithcode.com/sota/semantic-segmentation-on-loveda?p=dynamic-dictionary-learning-for-remote)-->
+<!--[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-fine-grained-grass)](https://paperswithcode.com/sota/semantic-segmentation-on-fine-grained-grass?p=dynamic-dictionary-learning-for-remote)-->
+<!--[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-fine-grained-cloud)](https://paperswithcode.com/sota/semantic-segmentation-on-fine-grained-cloud?p=dynamic-dictionary-learning-for-remote)-->
 
 
 <!--[![HugginngFace Models](https://img.shields.io/badge/🤗HugginngFace-Models-orange)](https://huggingface.co/XavierJiezou/ktda-models)-->
@@ -248,6 +248,7 @@ python test_uavid.py -i "data/uavid/uavid_test" -c config/uavid/d2ls.py -o fig_r
   pages     = {1--10},
 }
 ```
+
 
 
 
