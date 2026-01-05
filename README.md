@@ -240,14 +240,16 @@ python test_uavid.py -i "data/uavid/uavid_test" -c config/uavid/d2ls.py -o fig_r
 ## Citation
 
 ```bibtex
-@inproceedings{d2ls,
-  author    = {Xuechao Zou and Yue Li and Shun Zhang and Kai Li and Shiying Wang and Pin Tao and Junliang Xing and Congyan Lang},
-  title     = {Dynamic Dictionary Learning for Remote Sensing Image Segmentation},
-  booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
-  year      = {2025},
-  pages     = {1--10},
+@InProceedings{Zou_2025_ICCV,
+    author    = {Zou, Xuechao and Li, Yue and Zhang, Shun and Li, Kai and Wang, Shiying and Tao, Pin and Xing, Junliang and Lang, Congyan},
+    title     = {Dynamic Dictionary Learning for Remote Sensing Image Segmentation},
+    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+    month     = {October},
+    year      = {2025},
+    pages     = {22457-22466}
 }
 ```
+
 
 
 
