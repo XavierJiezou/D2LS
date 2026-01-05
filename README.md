@@ -4,6 +4,7 @@
 
 [![arXiv Paper](https://img.shields.io/badge/arXiv-2503.06683-B31B1B)](https://arxiv.org/abs/2503.06683)
 [![Project Page](https://img.shields.io/badge/Project%20Page-D2LS-blue)](https://xavierjiezou.github.io/D2LS/)
+[![ICCV 2025](https://img.shields.io/badge/Conference-ICCV%202025-orange)](https://openaccess.thecvf.com/content/ICCV2025/html/Zou_Dynamic_Dictionary_Learning_for_Remote_Sensing_Image_Segmentation_ICCV_2025_paper.html)
 <!--[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-isprs-potsdam)](https://paperswithcode.com/sota/semantic-segmentation-on-isprs-potsdam?p=dynamic-dictionary-learning-for-remote)-->
 <!--[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-isprs-vaihingen)](https://paperswithcode.com/sota/semantic-segmentation-on-isprs-vaihingen?p=dynamic-dictionary-learning-for-remote)-->
 <!--[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dynamic-dictionary-learning-for-remote/semantic-segmentation-on-uavid)](https://paperswithcode.com/sota/semantic-segmentation-on-uavid?p=dynamic-dictionary-learning-for-remote)-->
@@ -249,6 +250,7 @@ python test_uavid.py -i "data/uavid/uavid_test" -c config/uavid/d2ls.py -o fig_r
     pages     = {22457-22466}
 }
 ```
+
 
 
 
