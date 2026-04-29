@@ -236,7 +236,12 @@ python test_uavid.py -i "data/uavid/uavid_test" -c config/uavid/d2ls.py -o fig_r
 
 ## Poster
 
+- ICCV 2025
 ![poster](https://github.com/user-attachments/assets/341d61f5-9bb2-4859-9648-70fdde9df539)
+
+- CCIG 2026
+
+![poster](/image/ccig26poster.png)
 
 ## Citation
 
